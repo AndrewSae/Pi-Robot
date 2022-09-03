@@ -1,0 +1,23 @@
+* {
+    background-color: #2C3333;
+}
+
+.header {
+    color: #A5C9CA;
+    text-align: center;
+    font-size: 3em;
+}
+
+.subheader {
+    color: #A5C9CA;
+    text-align: center;
+    font-size: 2em;
+}
+
+#camrea-frame {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 20em;
+}
