@@ -1,16 +1,17 @@
 import sys
 from flask import Flask,render_template,Response, request
 import cv2
-# from gpiozero import Robot, DistanceSensor
+from gpiozero import Robot, DistanceSensor
 from time import sleep
 
 
 # setup the motor conrtoller with GPIOZERO (ROBOT)
-# robot = Robot(left=(20,21), right=(12,16))
+robot = Robot(left=(20,21), right=(12,16))
 
 
 app=Flask(__name__)
 camera=cv2.VideoCapture(0)
+camera.cv2.CAP_PROP_BUFFERSIZE(3)
 
 def generate_frames():
     while True:
@@ -35,30 +36,30 @@ def index():
         if request.form.get('Forward') == 'Forward':
             print("moving forward")
 
-            # robot.forward()
-            # sleep(1)
-            # robot.stop()
+            robot.forward()
 
         elif  request.form.get('Left') == 'Left':
             print("moving left")
 
-            # robot.left()
-            # sleep(1)
-            # robot.stop()
+            robot.left()
+   
 
         elif  request.form.get('Right') == 'Right':
             print("moving Right")\
 
-            # robot.right()
-            # sleep(1)
-            # robot.stop()
+            robot.right()
+   
 
         elif  request.form.get('Backward') == 'Backward':
             print("moving backward")
 
-            # robot.backward()
-            # sleep(1)
-            # robot.stop()
+            robot.backward()
+
+        elif  request.form.get('Stop') == 'Stop':
+            print("stoping")
+
+            robot.stop()
+
 
         else:
             return render_template("index.html")
@@ -75,4 +76,4 @@ def video():
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__=="__main__":
-    app.run(debug=True) 
+    app.run(host="0.0.0.0") 
