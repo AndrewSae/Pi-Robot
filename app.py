@@ -40,11 +40,11 @@ def index():
 
         elif  request.form.get('Left') == 'Left':
             print("moving left")
-            robot.left(speed=speed)
+            robot.left(speed=0.5)
    
         elif  request.form.get('Right') == 'Right':
             print("moving Right")
-            robot.right(speed=speed)
+            robot.right(speed=0.5)
    
         elif  request.form.get('Backward') == 'Backward':
             print("moving backward")
@@ -57,27 +57,27 @@ def index():
         elif  request.form.get('speed_1') == '1':
             print("changed speed")
             robot.stop()
-            speed = 1
+            speed = .2
 
         elif  request.form.get('speed_2') == '2':
             print("changed speed")
             robot.stop()
-            speed = 2
+            speed = .4
 
         elif  request.form.get('speed_3') == '3':
             print("changed speed")
             robot.stop()
-            speed = 3
+            speed = .6
 
         elif  request.form.get('speed_4') == '4':
             print("changed speed")
             robot.stop()
-            speed = 4
+            speed = .8
 
         elif  request.form.get('speed_3') == '3':
             print("changed speed")
             robot.stop()
-            speed = 5
+            speed = 1
 
         else:
             return render_template("index.html")
