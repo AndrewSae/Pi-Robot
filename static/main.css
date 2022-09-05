@@ -1,23 +1,45 @@
 * {
-    background-color: #2C3333;
+    margin: 0%;
+    padding: 0%;
 }
+body {
+
+  }
+
 
 .header {
-    color: #A5C9CA;
     text-align: center;
     font-size: 3em;
 }
 
 .subheader {
-    color: #A5C9CA;
     text-align: center;
     font-size: 2em;
+
 }
 
-#camrea-frame {
+#camrea {
+    width: 50%;
+    height: 35em;
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
     height: 30em;
 }
+
+.btn {
+    padding: 2em;
+    margin: 0.5em;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
