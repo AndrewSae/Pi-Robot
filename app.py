@@ -1,7 +1,4 @@
-import sys
-from turtle import speed
 from flask import Flask,render_template,Response, request
-import cv2
 from gpiozero import Robot, DistanceSensor
 from time import sleep
 
@@ -9,9 +6,7 @@ from time import sleep
 # setup the motor conrtoller with GPIOZERO (ROBOT)
 robot = Robot(left=(20,21), right=(12,16))
 
-
 app=Flask(__name__)
-camera=cv2.VideoCapture(0)
 
 
 def generate_frames():
@@ -32,52 +27,25 @@ def generate_frames():
 @app.route('/', methods=["GET","POST"])
 def index():
     print(request.method)
-    speed = 1
+    global speed
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
             print("moving forward")
-            robot.forward(speed=speed)
+            robot.forward()
 
         elif  request.form.get('Left') == 'Left':
             print("moving left")
-            robot.left(speed=0.5)
+            robot.left()
    
         elif  request.form.get('Right') == 'Right':
             print("moving Right")
-            robot.right(speed=0.5)
+            robot.right()
    
         elif  request.form.get('Backward') == 'Backward':
             print("moving backward")
-            robot.backward(speed=speed)
+            robot.backward()
 
-        elif  request.form.get('Stop') == 'Stop':
-            print("stoping")
-            robot.stop()
-
-        elif  request.form.get('speed_1') == '1':
-            print("changed speed")
-            robot.stop()
-            speed = .2
-
-        elif  request.form.get('speed_2') == '2':
-            print("changed speed")
-            robot.stop()
-            speed = .4
-
-        elif  request.form.get('speed_3') == '3':
-            print("changed speed")
-            robot.stop()
-            speed = .6
-
-        elif  request.form.get('speed_4') == '4':
-            print("changed speed")
-            robot.stop()
-            speed = .8
-
-        elif  request.form.get('speed_3') == '3':
-            print("changed speed")
-            robot.stop()
-            speed = 1
+    
 
         else:
             return render_template("index.html")

@@ -10,21 +10,21 @@
 </head>
 <body>
     <h1 class="header">Robot controller</h1>
-<!-- 
+
     <h2 class="subheader">Live vido feed</h2>
     <div>
 
-        <img id="camrea-frame" src="{{ url_for('video') }}"/>
-    </div> -->
+        <img class="center" id="camrea-frame" src="{{ url_for('video') }}"/>
+    </div>
 
 
     
-<h2 class="subheader">Move the robot with the D-pad below</h2>
+<h2 class="subheader">Move the robot with the buttons</h2>
 
 <div class="center">
 <form  method="post" action="/">
 
-    <input class ="btn btn-success btn" type="submit" value="front" name="Forward"/>
+    <input class ="btn btn-success btn" type="submit" value="forward" name="Forward"/>
     <input class ="btn btn-success btn" type="submit" value="Left" name="Left"/>
     <input class ="btn btn-success btn" type="submit" value="Right" name="Right"/>
     <input class ="btn btn-success btn" type="submit" value="Backward" name="Backward" />
@@ -33,20 +33,9 @@
 </form>
 </div>
 
-<h2 class="subheader">chnage the speed of the robot with the buttons below</h2>
 
 
-<div class="center">
-<form  method="post" action="/">
 
-    <input class="btn btn-success btn" type="submit" value="1" name="speed_1"/>
-    <input class="btn btn-success btn" type="submit" value="2" name="speed_2"/>
-    <input class="btn btn-warning btn" type="submit" value="3" name="speed_3"/>
-    <input class="btn btn-warning btn" type="submit" value="4" name="speed_4" />
-    <input class="btn btn-danger btn" type="submit" value="5" name="speed_5" />
-
-</form>
-</div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
