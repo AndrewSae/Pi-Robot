@@ -1,13 +1,14 @@
 from flask import Flask,render_template,Response, request
 from gpiozero import Robot, DistanceSensor
 from time import sleep
-
+import cv2 
 
 # setup the motor conrtoller with GPIOZERO (ROBOT)
 robot = Robot(left=(20,21), right=(12,16))
 
 app=Flask(__name__)
 
+camera=cv2.VideoCapture(0)
 
 def generate_frames():
     while True:
