@@ -4,7 +4,7 @@ from time import sleep
 import cv2 
 
 # setup the motor conrtoller with GPIOZERO (ROBOT)
-robot = Robot(left=(20,21), right=(12,16))
+robot = Robot(left=(21,20), right=(16,12))
 
 app=Flask(__name__)
 
@@ -32,19 +32,23 @@ def index():
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
             print("moving forward")
-            robot.forward()
+            robot.forward(speed=.5)
 
         elif  request.form.get('Left') == 'Left':
             print("moving left")
-            robot.left()
+            robot.left(speed=.5)
    
         elif  request.form.get('Right') == 'Right':
             print("moving Right")
-            robot.right()
+            robot.right(speed=.5)
    
-        elif  request.form.get('Backward') == 'Backward':
+        elif  request.form.get('Backward') == 'Backward':  
             print("moving backward")
-            robot.backward()
+            robot.backward(speed=.5)
+
+        elif  request.form.get('stop') == 'stop':  
+            print("stoping")
+            robot.stop()
 
     
 
