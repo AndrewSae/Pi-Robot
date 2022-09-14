@@ -46,7 +46,7 @@ def index():
             print("moving backward")
             robot.backward(speed=.5)
 
-        elif  request.form.get('stop') == 'stop':  
+        elif  request.form.get('Stop') == 'Stop':  
             print("stoping")
             robot.stop()
 
