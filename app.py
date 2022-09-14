@@ -32,23 +32,23 @@ def index():
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
             print("moving forward")
-            robot.forward()
+            robot.forward(speed=.5)
 
         elif  request.form.get('Left') == 'Left':
             print("moving left")
-            robot.left()
+            robot.left(speed=.5)
    
         elif  request.form.get('Right') == 'Right':
             print("moving Right")
-            robot.right()
+            robot.right(speed=.5)
    
         elif  request.form.get('Backward') == 'Backward':  
-            print("moving backward")
-            robot.backward()
+            print  ("moving backward")
+            robot.backward(speed=.5)
 
         elif  request.form.get('Stop') == 'Stop':  
             print("stoping")
-            robot.stop()
+            robot.stop(speed=.5)
 
     
 
