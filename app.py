@@ -48,7 +48,7 @@ def index():
 
         elif  request.form.get('Stop') == 'Stop':  
             print("stoping")
-            robot.stop(speed=.5)
+            robot.stop()
 
     
 
