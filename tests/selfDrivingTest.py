@@ -33,17 +33,25 @@ while run:
         print("right: " + str(right_read))
 
 
-        if left_read <= right_read and left_read >= 20:
-            while front_sensor.distance * 100 >= 20:
+        if left_read <= right_read and left_read >= 25:
+            print("right")
+            while front_sensor.distance * 100 <= 20:
+                robot.right()
+            robot.stop()
+            print("done" + str(front_sensor.distance * 100))
+
+        elif right_read <= left_read and right_read >= 25:
+            print("left")
+            while front_sensor.distance * 100 <= 20:
                 robot.left()
             robot.stop()
             print("done" + str(front_sensor.distance * 100))
 
-        elif right_read >= left_read and right_read >= 20:
-            while front_sensor.distance * 100 >= 20:
-                robot.right()
-            robot.stop()
-            print("done" + str(front_sensor.distance * 100))
+
+        else:
+            robot.backward()
+            sleep(3)
+            robot.sleep()
 
 
     else:
