@@ -4,7 +4,7 @@ from time import sleep
 import cv2 
 
 # setup the motor conrtoller with GPIOZERO (ROBOT)
-robot = Robot(left=(21,20), right=(16,12))
+robot = Robot(left=(16,12), right=(21,20))
 
 app=Flask(__name__)
 
