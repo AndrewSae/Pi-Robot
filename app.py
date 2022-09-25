@@ -64,7 +64,7 @@ def index():
 def page2():
 
     if request.method == 'POST':
-        return redirect(url_for('/page2'))
+        return redirect(url_for('page2'))
         if request.form.get('Start') == 'Start':
             print("starting script")
 
