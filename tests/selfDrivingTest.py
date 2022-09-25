@@ -37,6 +37,7 @@ while run:
             print("right")
             while front_sensor.distance * 100 <= 20:
                 robot.right()
+                sleep(.1)
             robot.stop()
             print("done" + str(front_sensor.distance * 100))
 
@@ -44,6 +45,7 @@ while run:
             print("left")
             while front_sensor.distance * 100 <= 20:
                 robot.left()
+                sleep(.1)
             robot.stop()
             print("done" + str(front_sensor.distance * 100))
 
