@@ -1,7 +1,10 @@
+from distutils.core import run_setup
 from flask import Flask,render_template,Response, request, redirect, url_for
 from gpiozero import Robot, DistanceSensor
 from time import sleep
 import cv2 
+from threading import Thread
+
 
 # setup the motor conrtoller with GPIOZERO (ROBOT)
 robot = Robot(left=(16,12), right=(21,20))
@@ -32,11 +35,73 @@ def generate_frames():
 
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+global runScript
+runScript = False
+
+def thread():
+    if request.form.get('Stop') == 'Stop':
+         print("stoping script")
+         global runScript
+         runScript = False
+         robot.stop()
+def thread2():
+    global runScript
+
+    while runScript:
+
+        sleep(0.1)
+        if front_sensor.distance * 100 <= 20:
+            #stop the robot
+            robot.stop()
+            # get the readings from the front left and right sensors
+            front_read = front_sensor.distance * 100
+            left_read = left_sensor.distance * 100
+            right_read = right_sensor.distance * 100
+
+            # print out all of the readings 
+            print("stoped somthing blocking front")
+            print("Front: " + str(front_read))
+            print("left: " + str(left_read))
+            print("right: " + str(right_read))
+
+
+            if left_read <= right_read and right_read >= 20:
+                print("right")
+                while front_sensor.distance * 100 <= 20:
+                    robot.right()
+                    sleep(.1)
+                robot.stop()
+                print("done" + str(front_sensor.distance * 100))
+
+            elif right_read <= left_read and left_read >= 20:
+                print("left")
+                while front_sensor.distance * 100 <= 20:
+                    robot.left()
+                    sleep(.1)
+                robot.stop()
+                print("done" + str(front_sensor.distance * 100))
+
+
+        elif front_right_sensor.distance * 100 <= 20:
+            robot.left()
+            sleep(2)
+            robot.stop()
+
+        elif front_left_sensor.distance * 100 <= 20:
+            robot.right()
+            sleep(2)
+            robot.stop()
+
+
+        else:
+            robot.forward(speed=.5)
 
 
 @app.route('/', methods=["GET","POST"])
 def index():
     print(request.method)
+    robot.stop()
+
     global speed
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
@@ -71,63 +136,19 @@ def index():
 
 @app.route('/page2', methods=["GET","POST"])
 def page2():
+    global runScript
     runScript = False
-
+    robot.stop()
     if request.method == 'POST':
         if request.form.get('Start') == 'Start':
             print("starting script")
             runScript = True
-            while runScript:
-
-                sleep(0.1)
-                if front_sensor.distance * 100 <= 20:
-                    #stop the robot
-                    robot.stop()
-                    # get the readings from the front left and right sensors
-                    front_read = front_sensor.distance * 100
-                    left_read = left_sensor.distance * 100
-                    right_read = right_sensor.distance * 100
-
-                    # print out all of the readings 
-                    print("stoped somthing blocking front")
-                    print("Front: " + str(front_read))
-                    print("left: " + str(left_read))
-                    print("right: " + str(right_read))
-
-
-                    if left_read <= right_read and right_read >= 20:
-                        print("right")
-                        while front_sensor.distance * 100 <= 20:
-                            robot.right()
-                            sleep(.1)
-                        robot.stop()
-                        print("done" + str(front_sensor.distance * 100))
-
-                    elif right_read <= left_read and left_read >= 20:
-                        print("left")
-                        while front_sensor.distance * 100 <= 20:
-                            robot.left()
-                            sleep(.1)
-                        robot.stop()
-                        print("done" + str(front_sensor.distance * 100))
-
-
-                elif front_right_sensor.distance * 100 <= 20:
-                    robot.left()
-                    sleep(2)
-                    robot.stop()
-
-                elif front_left_sensor.distance * 100 <= 20:
-                    robot.right()
-                    sleep(2)
-                    robot.stop()
-                else:
-                    robot.forward()
-
-
-    elif request.form.get('Stop') == 'Stop':
-            print("stoping script")
-            runScript = False
+            t1 = Thread(target=thread)
+            t2 = Thread(target=thread2)
+            t1.start()
+            t2.start()
+            t1.join()
+            t2.join()
 
     return render_template('page2.html')
 
