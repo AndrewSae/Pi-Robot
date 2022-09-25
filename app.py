@@ -1,4 +1,4 @@
-from flask import Flask,render_template,Response, request
+from flask import Flask,render_template,Response, request, redirect, url_for
 from gpiozero import Robot, DistanceSensor
 from time import sleep
 import cv2 
@@ -60,16 +60,17 @@ def index():
 
     return render_template('index.html')
 
-@app.route('/page2')
+@app.route('/page2', methods=["GET","POST"])
 def page2():
 
     if request.method == 'POST':
+        return redirect(url_for('/page2'))
         if request.form.get('Start') == 'Start':
             print("starting script")
 
         elif request.form.get('Stop') == 'Stop':
             print("stoping script")
-            
+
     return render_template('page2.html')
 
 
