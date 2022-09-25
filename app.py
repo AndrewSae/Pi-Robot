@@ -38,6 +38,15 @@ def generate_frames():
 global runScript
 runScript = False
 
+def thread1():
+    while runScript:
+        if request.form.get('Stop') == 'Stop':
+            print("stoping script")
+            global runScript
+            runScript = False
+            robot.stop()
+    print("thred 1 DONE")
+
 
 def thread2():
     global runScript
@@ -90,6 +99,8 @@ def thread2():
 
         else:
             robot.forward(speed=.5)
+    print("thread 2 DONE")
+    
 
 
 @app.route('/', methods=["GET","POST"])
@@ -138,7 +149,7 @@ def page2():
         if request.form.get('Start') == 'Start':
             print("starting script")
             runScript = True
-            t1 = Thread(target=page2)
+            t1 = Thread(target=thread1)
             t2 = Thread(target=thread2)
 
             t1.start()
@@ -146,12 +157,8 @@ def page2():
 
             t1.join()
             t2.join()
-            
-    if request.form.get('Stop') == 'Stop':
-         print("stoping script")
-         global runScript
-         runScript = False
-         robot.stop()
+
+
 
 
 
