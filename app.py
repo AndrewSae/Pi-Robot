@@ -69,9 +69,8 @@ def page2():
 
         elif request.form.get('Stop') == 'Stop':
             print("stoping script")
-
-        return render_template('page2.html')
-
+            
+    return redirect('page2.html')
 
 
 @app.route('/video')
