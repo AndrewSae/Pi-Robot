@@ -38,12 +38,7 @@ def generate_frames():
 global runScript
 runScript = False
 
-def thread():
-    if request.form.get('Stop') == 'Stop':
-         print("stoping script")
-         global runScript
-         runScript = False
-         robot.stop()
+
 def thread2():
     global runScript
 
@@ -143,12 +138,22 @@ def page2():
         if request.form.get('Start') == 'Start':
             print("starting script")
             runScript = True
-            t1 = Thread(target=thread)
+            t1 = Thread(target=page2)
             t2 = Thread(target=thread2)
+
             t1.start()
             t2.start()
+
             t1.join()
             t2.join()
+            
+    if request.form.get('Stop') == 'Stop':
+         print("stoping script")
+         global runScript
+         runScript = False
+         robot.stop()
+
+
 
     return render_template('page2.html')
 
