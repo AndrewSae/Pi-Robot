@@ -34,73 +34,12 @@ def generate_frames():
             frame=buffer.tobytes()
 
         yield(b'--frame\r\n'
+
+
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+                   
 global runScript
-runScript = False
 
-def thread1():
-    while runScript:
-        if request.form.get('Stop') == 'Stop':
-            print("stoping script")
-            global runScript
-            runScript = False
-            robot.stop()
-    print("thred 1 DONE")
-
-
-def thread2():
-    global runScript
-
-    while runScript:
-
-        sleep(0.1)
-        if front_sensor.distance * 100 <= 20:
-            #stop the robot
-            robot.stop()
-            # get the readings from the front left and right sensors
-            front_read = front_sensor.distance * 100
-            left_read = left_sensor.distance * 100
-            right_read = right_sensor.distance * 100
-
-            # print out all of the readings 
-            print("stoped somthing blocking front")
-            print("Front: " + str(front_read))
-            print("left: " + str(left_read))
-            print("right: " + str(right_read))
-
-
-            if left_read <= right_read and right_read >= 20:
-                print("right")
-                while front_sensor.distance * 100 <= 20:
-                    robot.right()
-                    sleep(.1)
-                robot.stop()
-                print("done" + str(front_sensor.distance * 100))
-
-            elif right_read <= left_read and left_read >= 20:
-                print("left")
-                while front_sensor.distance * 100 <= 20:
-                    robot.left()
-                    sleep(.1)
-                robot.stop()
-                print("done" + str(front_sensor.distance * 100))
-
-
-        elif front_right_sensor.distance * 100 <= 20:
-            robot.left()
-            sleep(2)
-            robot.stop()
-
-        elif front_left_sensor.distance * 100 <= 20:
-            robot.right()
-            sleep(2)
-            robot.stop()
-
-
-        else:
-            robot.forward(speed=.5)
-    print("thread 2 DONE")
-    
 
 
 @app.route('/', methods=["GET","POST"])
@@ -149,14 +88,15 @@ def page2():
         if request.form.get('Start') == 'Start':
             print("starting script")
             runScript = True
-            t1 = Thread(target=thread1)
-            t2 = Thread(target=thread2)
-
-            t1.start()
-            t2.start()
-
-            t1.join()
-            t2.join()
+            
+            while runScript:
+                sleep(.1)
+                print("running")
+                if request.form.get('Stop') == 'Stop':
+                    print("stoping script")
+                    runScript = False
+                    break 
+                
 
 
 
