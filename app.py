@@ -88,15 +88,17 @@ def page2():
         if request.form.get('Start') == 'Start':
             print("starting script")
             runScript = True
+
             
             while runScript:
                 sleep(.1)
                 print("running")
-                if request.form.get('Stop') == 'Stop':
-                    print("stoping script")
-                    runScript = False
-                    break 
-                
+                if request.method == 'POST':
+                    if request.form.get('Stop') == 'Stop':
+                        print("stoping script")
+                        runScript = False
+                        break 
+
 
 
 
