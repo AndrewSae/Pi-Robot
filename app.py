@@ -41,6 +41,21 @@ def generate_frames():
 global runScript
 
 
+def thread():
+    global runScript
+    print("therad 1 is running")
+    if request.method == 'POST':
+        if request.form.get('Stop') == 'Stop':
+            print("stoping script")
+            runScript = False
+
+
+def thread2():
+    global runScript
+    while runScript:
+        print("thread 2 is running")
+    print("therad 2 is done")
+
 
 @app.route('/', methods=["GET","POST"])
 def index():
@@ -89,16 +104,19 @@ def page2():
             print("starting script")
             runScript = True
 
-            
-            while runScript:
-                sleep(.1)
-                print("running")
-                if request.method == 'POST':
-                    if request.form.get('Stop') == 'Stop':
-                        print("stoping script")
-                        runScript = False
-                        break 
 
+            
+            t1 = Thread(target=thread)
+            t2 = Thread(target=thread2)
+
+            # start the threads
+            t1.start()
+            t2.start()
+
+            # wait for the threads to complete
+            t1.join()
+            t2.join()
+            print("threads are done running")
 
 
 
