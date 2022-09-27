@@ -1,3 +1,4 @@
+from cProfile import run
 from distutils.core import run_setup
 from flask import Flask,render_template,Response, request, redirect, url_for
 from gpiozero import Robot, DistanceSensor
@@ -42,35 +43,81 @@ global runScript
 
 
 def selfDriving():
+    print("starting self driving script")
+    global runScript
     sleep(.1)
     while runScript:
-        print("script is running")
-        
+        if front_sensor.distance * 100 <= 20:
+            #stop the robot
+            robot.stop()
+            # get the readings from the front left and right sensors
+            front_read = front_sensor.distance * 100
+            left_read = left_sensor.distance * 100
+            right_read = right_sensor.distance * 100
+
+            # print out all of the readings 
+            print("stoped somthing blocking front")
+            print("Front: " + str(front_read))
+            print("left: " + str(left_read))
+            print("right: " + str(right_read))
+
+            if left_read <= right_read and right_read >= 20:
+                print("right")
+                while front_sensor.distance * 100 <= 20:
+                    robot.right()
+                    sleep(.1)
+                robot.stop()
+                print("done" + str(front_sensor.distance * 100))
+
+            elif right_read <= left_read and left_read >= 20: 
+                print("left")
+                while front_sensor.distance * 100 <= 20:
+                    robot.left()
+                    sleep(.1)
+                robot.stop()
+                print("done" + str(front_sensor.distance * 100))
+
+        elif front_right_sensor.distance * 100 <= 20:
+            robot.left()
+            sleep(2)
+            robot.stop()
+
+        elif front_left_sensor.distance * 100 <= 20:
+            robot.right()
+            sleep(2)
+            robot.stop()
+
+        else:
+            robot.forward(speed=.5)
+            
     
 
 
 @app.route('/', methods=["GET","POST"])
 def index():
     print(request.method)
+
     robot.stop()
 
-    global speed
+    global runScript
+    runScript = False
+
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
             print("moving forward")
-            robot.forward(speed=.5)
+            robot.forward()
 
         elif  request.form.get('Left') == 'Left':
             print("moving left")
-            robot.left(speed=.5)
+            robot.left()
    
         elif  request.form.get('Right') == 'Right':
             print("moving Right")
-            robot.right(speed=.5)
+            robot.right()
    
         elif  request.form.get('Backward') == 'Backward':  
             print  ("moving backward")
-            robot.backward(speed=.5)
+            robot.backward()
 
         elif  request.form.get('Stop') == 'Stop':  
             print("stoping")
@@ -98,10 +145,10 @@ def page2():
 
             t1 = Thread(target=selfDriving)
             t1.start()
-        if request.form.get('Start') == 'Start':
+
+        if request.form.get('Stop') == 'Stop':
             print("stoping script")
             runScript = False
-            print(runScript)
 
 
 
