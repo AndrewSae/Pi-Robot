@@ -89,7 +89,18 @@ def page2():
         if request.form.get('Start') == 'Start':
             print("starting script")
             runScript = True
-            robot.forward()                
+            robot.forward()             
+
+            while runScript:
+                sleep(.1)
+                if request.form.get('Stop') == 'Stop':
+                    runScript = False
+                    robot.stop()
+                    break
+                else:
+                    print("running")   
+        if request.form.get('Start') == 'Start':
+            print("stoping script")
 
 
 
