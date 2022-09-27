@@ -63,17 +63,19 @@ def selfDriving():
 
             if left_read <= right_read and right_read >= 20:
                 print("right")
-                robot.right()
-                sleep(2)
+                while front_sensor.distance * 100 <= 20:
+                    robot.right()
+                    sleep(.1)
                 robot.stop()
+                print("done" + str(front_sensor.distance * 100))
 
             elif right_read <= left_read and left_read >= 20: 
                 print("left")
-                robot.left()
-                sleep(2)
+                while front_sensor.distance * 100 <= 20:
+                    robot.left()
+                    sleep(.1)
                 robot.stop()
-
-
+                print("done" + str(front_sensor.distance * 100))
 
         elif front_right_sensor.distance * 100 <= 20:
             robot.left()
