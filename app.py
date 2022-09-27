@@ -41,6 +41,12 @@ def generate_frames():
 global runScript
 
 
+def selfDriving():
+    sleep(.1)
+    while runScript:
+        print("script is running")
+        
+    
 
 
 @app.route('/', methods=["GET","POST"])
@@ -89,18 +95,14 @@ def page2():
         if request.form.get('Start') == 'Start':
             print("starting script")
             runScript = True
-            robot.forward()             
 
-            while runScript:
-                sleep(.1)
-                if request.form.get('Stop') == 'Stop':
-                    runScript = False
-                    robot.stop()
-                    break
-                else:
-                    print("running")   
+            t1 = Thread(target=selfDriving)
+            t1.start()
         if request.form.get('Start') == 'Start':
             print("stoping script")
+            runScript = False
+            print(runScript)
+
 
 
 
