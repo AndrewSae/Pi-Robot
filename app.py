@@ -93,6 +93,7 @@ def selfDriving():
 
         else:
             robot.forward(speed=.5)
+    print("done")
             
     
 
@@ -104,13 +105,6 @@ def index():
 
     robot.stop()
 
-    global runCheck
-    runCheck = True
-
-    # makes thread for the self driving function to run on 
-    t1 = Thread(target=sensorCheck)
-    # starts the thread
-    t1.start()
 
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
@@ -134,8 +128,6 @@ def index():
 @app.route('/page2', methods=["GET","POST"])
 def page2():
 
-    global runScript
-    runScript = False
 
     global runCheck
     runCheck = False
@@ -151,8 +143,8 @@ def page2():
             # starts the thread
             t1.start()
 
-        if request.form.get('Stop') == 'Stop':
-            runScript = False
+            if request.form.get('Stop') == 'Stop':
+                runScript = False
 
     return render_template('page2.html')
 
