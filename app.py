@@ -1,7 +1,3 @@
-from cProfile import run
-from distutils.core import run_setup
-from tabnanny import check
-from tkinter.tix import Tree
 from flask import Flask,render_template,Response, request, redirect, url_for
 from gpiozero import Robot, DistanceSensor
 from time import sleep
@@ -36,31 +32,11 @@ def generate_frames():
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
                    
 global runScript
-global runCheck
-
-
-def sensorCheck():
-    global runCheck
-    while runCheck:
-        if front_sensor.distance * 100 <= 20:
-            robot.stop()
-        elif front_right_sensor.distance * 100 <= 20:
-            robot.stop()
-        elif front_left_sensor.distance * 100 <= 20:
-            robot.stop()
-        elif left_sensor.distance * 100 <= 20:
-            robot.stop()
-        elif front_right_sensor.distance * 100 <= 20:
-            robot.stop()
-        elif back_sensor.distance * 100 <= 20:
-            robot.stop()
-    print("done")
 
 def selfDriving():
     global runScript
     sleep(.1)
     while runScript:
-
         if front_sensor.distance * 100 <= 20:
 
             robot.stop()
@@ -95,8 +71,6 @@ def selfDriving():
             robot.forward(speed=.5)
     print("done")
             
-    
-
 
 @app.route('/', methods=["GET","POST"])
 def index():
@@ -104,7 +78,6 @@ def index():
     runScript = False
 
     robot.stop()
-
 
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
@@ -122,25 +95,21 @@ def index():
         elif  request.form.get('Stop') == 'Stop':  
             robot.stop()
 
-
     return render_template('index.html')
 
 @app.route('/page2', methods=["GET","POST"])
+
 def page2():
 
-
-    global runCheck
-    runCheck = False
-
     robot.stop()
+    global runScript
 
     if request.method == 'POST':
         if request.form.get('Start') == 'Start':
             runScript = True
             
-            # makes thread for the self driving function to run on 
             t1 = Thread(target=selfDriving)
-            # starts the thread
+
             t1.start()
 
             if request.form.get('Stop') == 'Stop':
