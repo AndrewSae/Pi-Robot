@@ -103,6 +103,7 @@ def page2():
 
     robot.stop()
     global runScript
+    runScript = False
 
     if request.method == 'POST':
         if request.form.get('Start') == 'Start':
@@ -114,6 +115,8 @@ def page2():
 
             if request.form.get('Stop') == 'Stop':
                 runScript = False
+                print("stoped")
+                
 
     return render_template('page2.html')
 
