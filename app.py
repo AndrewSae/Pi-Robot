@@ -1,7 +1,6 @@
 from flask import Flask,render_template,Response, request, redirect, url_for
 from gpiozero import Robot, DistanceSensor
 from time import sleep
-import cv2 
 from threading import Thread
 
 robot = Robot(left=(16,12), right=(21,20))
@@ -16,21 +15,8 @@ left_sensor = DistanceSensor(echo=11, trigger=9)
 
 app=Flask(__name__)
 
-camera=cv2.VideoCapture(0)
 
-def generate_frames():
-    while True:
-        # read the camera frame
-        success,frame=camera.read()
-        if not success:
-            break
-        else:
-            ret,buffer=cv2.imencode('.jpg',frame)
-            frame=buffer.tobytes()
 
-        yield(b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-                   
 global runScript
 
 def selfDriving():
@@ -119,10 +105,6 @@ def page2():
 
     return render_template('page2.html')
 
-
-@app.route('/video')
-def video():
-    return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__=="__main__":
     app.run(host="0.0.0.0") 
