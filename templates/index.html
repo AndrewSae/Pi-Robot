@@ -74,18 +74,15 @@
         
         var gp = navigator.getGamepads()[0];
         
-        while (gp.buttons[4].pressed && gp.buttons[5].pressed) {
+        if (gp.buttons[4].pressed && gp.buttons[5].pressed) {
             forwardBtn.click();
-            console.log("moving forward");
             } 
-        while (gp.buttons[5].pressed) {
+        if (gp.buttons[5].pressed) {
                 rightBtn.click();
-                console.log("moving right");
             }
             
-        while (gp.buttons[4].pressed) {
+        if (gp.buttons[4].pressed) {
                 leftBtn.click();
-                console.log("moving left");
             }
             stopBtn.click();
             
