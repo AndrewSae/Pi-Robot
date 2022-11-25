@@ -77,14 +77,13 @@
         if (gp.buttons[4].pressed && gp.buttons[5].pressed) {
             forwardBtn.click();
             } 
-        if (gp.buttons[5].pressed) {
+        else if (gp.buttons[5].pressed) {
                 rightBtn.click();
             }
             
-        if (gp.buttons[4].pressed) {
-                leftBtn.click();
-            }
+        else if  (gp.buttons[4].pressed) {
             stopBtn.click();
+            }
             
         
         requestAnimationFrame(updateLoop);
