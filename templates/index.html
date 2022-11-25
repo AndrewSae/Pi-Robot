@@ -74,23 +74,21 @@
         
         var gp = navigator.getGamepads()[0];
         
-        if (gp.buttons[4].pressed && gp.buttons[5].pressed) {
+        while (gp.buttons[4].pressed && gp.buttons[5].pressed) {
             forwardBtn.click();
             console.log("moving forward");
             } 
-            else if (gp.buttons[5].pressed) {
+        while (gp.buttons[5].pressed) {
                 rightBtn.click();
                 console.log("moving right");
             }
             
-            else if (gp.buttons[4].pressed) {
+        while (gp.buttons[4].pressed) {
                 leftBtn.click();
                 console.log("moving left");
             }
+            stopBtn.click();
             
-            else {
-                stopBtn.click();
-            }
         
         requestAnimationFrame(updateLoop);
         
