@@ -74,17 +74,35 @@
         
         var gp = navigator.getGamepads()[0];
         
-        if (gp.buttons[4].pressed && gp.buttons[5].pressed) {
-            forwardBtn.click();
+            if (gp.buttons[1].pressed) {
+                console.log("stoped");
+            }
+
+            else if (gp.axes[1] == -1.0) {
+                forwardBtn.click();
+                console.log("up");
             } 
-        else if (gp.buttons[5].pressed) {
+            else if (gp.axes[1] == 1.0) {
+                backBtn.click();
+                console.log("down");
+            }
+            else if (gp.axes[2] == -1.0) {
                 rightBtn.click();
+                console.log("right");
+            } 
+            else if (gp.axes[2] == 1.0) {
+                leftBtn.click();
+                console.log("left");
             }
-            
-        else if  (gp.buttons[4].pressed) {
-            stopBtn.click();
+            else {
+                stopBtn.click();
             }
+        
+
+
             
+            
+
         
         requestAnimationFrame(updateLoop);
         
