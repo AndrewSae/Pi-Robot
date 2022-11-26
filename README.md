@@ -5,6 +5,7 @@
   - Made With Python with a web server powered by Flask
   - The actual pages on the web server were made with HTML5, CSS3, and Bootstrap
   - The web server has controls for the robot and is also used to start/stop the self-driving script
+  - The web server also has the ability to use a wired Xbox controller to move the robot
   - The self-driving script allows the robot to use the six ultrasonic sensors to drive around without hitting anything
   - This robot moves via the 4 TT motors powered by a motor controller
  
@@ -23,8 +24,14 @@
 |6x1 AA Battery Box |    x1   | 
 |Male To Female Jumper Wires |    N/A   | 
 
-(the Ultrasonic Sensor mounts can be found in the parts directory)
+(the stls for the ultrasonic sensor mounts can be found in the parts directory to be printed)
 
+## Things I Learned 
+  -  How to control DC motors
+  - How to set up and use the data from ultrasonic sensors
+  - How to use CAD to make custom parts
+  - How to make a web server with flask and how to post requests work
+  - How to use the build in javascript gamepad API
 
 
 
