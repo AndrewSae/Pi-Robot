@@ -42,4 +42,7 @@
  
 ## Photos
 
+![alt text](https://github.com/AndrewSae/Pi-Robot/blob/main/img/UI-1.png?raw=true)
+![alt text](https://github.com/AndrewSae/Pi-Robot/blob/main/img/UI-2.png?raw=true)
+
 
