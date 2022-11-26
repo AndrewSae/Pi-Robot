@@ -2,9 +2,6 @@
     margin: 0%;
     padding: 0%;
 }
-body {
-
-  }
 
 
 .header {
@@ -15,7 +12,6 @@ body {
 .subheader {
     text-align: center;
     font-size: 2em;
-
 }
 
 #camrea {
@@ -28,6 +24,9 @@ body {
     height: 30em;
 }
 
+.info {
+    font-size: 1rem;
+}
 .btn {
     padding: 2em;
     margin: 0.5em;
@@ -37,9 +36,7 @@ body {
     margin: auto;
     width: 50%;
     padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    text-align: center;
+    }
 
 
