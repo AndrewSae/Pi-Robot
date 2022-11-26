@@ -67,7 +67,7 @@ def index():
 
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
-            robot.forward()
+            robot.forward()                                                                                
 
         elif  request.form.get('Left') == 'Left':
             robot.left()
